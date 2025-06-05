@@ -12,8 +12,6 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
-# Server stuff
-/[Ss]erver[Ss]ide/[Rr]elease/
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
@@ -86,3 +84,8 @@ crashlytics-build.properties
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+
+# Server stuff
+/[Ss]erver[Ss]ide/[Rr]elease/
+!Server.csproj
