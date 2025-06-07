@@ -5,14 +5,9 @@ using UnityEngine;
 public class AmmoBarrel : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void ()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
