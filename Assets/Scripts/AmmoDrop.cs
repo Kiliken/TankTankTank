@@ -8,9 +8,9 @@ public class AmmoDrop : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.log("Ammo refilled");
+            Debug.Log("Ammo refilled");
             //Play Reload SE
-            Destroy(this.GameObject);
+            Destroy(this.gameObject);
         }
     }
 }

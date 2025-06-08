@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -14,15 +17,32 @@ public class TestManager : MonoBehaviour
     [SerializeField] OtherMovement playerOther;
     string playerPosString;
 
+    [SerializeField]string ip = "127.0.0.1";
+    UdpClient udpc;
+    IPEndPoint ep = null;
+    bool dataFlag = false;
+    float timer = 0;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        udpc = new UdpClient(ip, 25565);
+        Debug.Log("DEBUG");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time - timer > .1f)
+        {
+
+
+            SendGetData();
+
+
+            timer = Time.time;
+        }
+        
         
     }
 
@@ -46,8 +66,14 @@ public class TestManager : MonoBehaviour
               $"{p.y.ToString("F1", CultureInfo.InvariantCulture)}, " +
               $"{p.z.ToString("F1", CultureInfo.InvariantCulture)})";
 
-        //Debug.Log(playerPosString);
-        GetData(playerPosString);
+        Debug.Log(playerPosString);
+        //GetData(playerPosString);
+    }
+
+    public static string ParseToString(Vector3 p) {
+        return $"({p.x.ToString("F1", CultureInfo.InvariantCulture)}, " +
+              $"{p.y.ToString("F1", CultureInfo.InvariantCulture)}, " +
+              $"{p.z.ToString("F1", CultureInfo.InvariantCulture)})";
     }
 
 
@@ -75,5 +101,29 @@ public class TestManager : MonoBehaviour
             Debug.LogError("Failed to parse Vector3: " + e.Message);
             return Vector3.zero;
         }
+    }
+
+    void SendGetData()
+    {
+
+        if (dataFlag) return;
+
+        dataFlag = true;
+
+        byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
+        udpc.Send(msg, msg.Length);
+
+        byte[] rdata = udpc.Receive(ref ep);
+        dataFlag = false;
+        string message = Encoding.ASCII.GetString(rdata);
+
+        if (message == "<P0>") return;
+
+        Debug.Log(message.Substring(4, message.Length - 4));
+        GetData(message.Substring(4, message.Length - 4));
+        
+            
+        
+        
     }
 }

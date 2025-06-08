@@ -12,11 +12,9 @@ class StudentUDPServer
         UdpClient udpc = new UdpClient(25565);
         Console.WriteLine("Server Started, servicing on port no. 25565");
         IPEndPoint ep = null;
-        IPEndPoint player1 = null;
-        IPEndPoint player2 = null;
         byte[] sdata;
-        string p1Data;
-        string p2Data;
+        string p1Data = "<P0>";
+        string p2Data = "<P0>";
 
         while (true)
         {
@@ -39,28 +37,26 @@ class StudentUDPServer
             if (message.Substring(0, 4) == "<P1>")
             {
                 p1Data = message;
-                if (player1 == null) player1 = ep;
-                if (player2 == null)
+                if (p2Data == "<P0>")
                 {
-                    sdata = Encoding.ASCII.GetBytes(message);
-                    udpc.Send(sdata, sdata.Length, player1);
+                    sdata = Encoding.ASCII.GetBytes("<P0>");
+                    udpc.Send(sdata, sdata.Length, ep);
                     continue;
                 }
-                sdata = Encoding.ASCII.GetBytes(p1Data);
-                udpc.Send(sdata, sdata.Length, player2);
+                sdata = Encoding.ASCII.GetBytes(p2Data);
+                udpc.Send(sdata, sdata.Length, ep);
             }
             else if (message.Substring(0, 4) == "<P2>")
             {
                 p2Data = message;
-                if (player2 == null) player2 = ep;
-                if (player1 == null)
+                if (p1Data == "<P0>")
                 {
-                    sdata = Encoding.ASCII.GetBytes(message);
-                    udpc.Send(sdata, sdata.Length, player2);
+                    sdata = Encoding.ASCII.GetBytes("<P0>");
+                    udpc.Send(sdata, sdata.Length, ep);
                     continue;
                 }
-                sdata = Encoding.ASCII.GetBytes(p2Data);
-                udpc.Send(sdata, sdata.Length, player1);
+                sdata = Encoding.ASCII.GetBytes(p1Data);
+                udpc.Send(sdata, sdata.Length, ep);
             }
 
         }
