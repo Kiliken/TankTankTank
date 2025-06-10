@@ -33,7 +33,8 @@ public class TestManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 60;
         Debug.Log("DEBUG");
     }
 
@@ -58,7 +59,7 @@ public class TestManager : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("Thread something");
+        Debug.Log("Thread shutdown");
         udpDataThread.Abort();
     }
 

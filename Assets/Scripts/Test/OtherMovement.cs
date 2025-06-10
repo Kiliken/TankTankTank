@@ -19,7 +19,7 @@ public class OtherMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movePos, moveSpeedDefault);
+        transform.position = Vector3.Lerp(transform.position, movePos, Time.deltaTime * moveSpeedDefault);
     }
 
     private void FixedUpdate()
