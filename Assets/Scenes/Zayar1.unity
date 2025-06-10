@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movePos: {x: 0, y: 0, z: 0}
+  moveSpeedDefault: 10
 --- !u!1 &194107755
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,10 +590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa3e23d3d98ac04abce71f88f802ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSide: <P2>
+  playerSide: <P1>
   player: {fileID: 194107761}
   playerOther: {fileID: 82296087}
   ip: 127.0.0.1
+  port: 25565
 --- !u!4 &420737707
 Transform:
   m_ObjectHideFlags: 0

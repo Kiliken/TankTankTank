@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
+using System.Threading;
 using Vector3 = UnityEngine.Vector3;
+
 
 public class TestManager : MonoBehaviour
 {
@@ -17,39 +19,47 @@ public class TestManager : MonoBehaviour
     [SerializeField] OtherMovement playerOther;
     string playerPosString;
 
-    [SerializeField]string ip = "127.0.0.1";
-    UdpClient udpc;
-    IPEndPoint ep = null;
+    [SerializeField] string ip = "127.0.0.1";
+    [SerializeField] int port = 25565;
+    static UdpClient udpc;
     bool dataFlag = false;
     float timer = 0;
+    private Thread udpDataThread;
+    private bool udpRunnig = true;
+
+    static volatile string udpSend = "<P0>";
+    static volatile string udpGet  = "<P0>";
 
     // Start is called before the first frame update
     void Awake()
     {
-        udpc = new UdpClient(ip, 25565);
+        
         Debug.Log("DEBUG");
+    }
+
+    void Start()
+    {
+        udpc = new UdpClient(ip, port);
+        udpc.Client.ReceiveTimeout = 1000;
+        udpDataThread = new Thread(new ThreadStart(SendGetData));
+        udpDataThread.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - timer > .1f)
-        {
+        udpSend = $"{playerSide}{ParseToString(player.transform.position)}";
 
 
-            SendGetData();
+        if (udpGet != "<P0>")
+            GetData(udpGet.Substring(4, udpGet.Length - 4));
 
-
-            timer = Time.time;
-        }
-        
-        
     }
 
-
-    private void FixedUpdate()
+    void OnDestroy()
     {
-        
+        Debug.Log("Thread something");
+        udpDataThread.Abort();
     }
 
 
@@ -70,7 +80,8 @@ public class TestManager : MonoBehaviour
         //GetData(playerPosString);
     }
 
-    public static string ParseToString(Vector3 p) {
+    public static string ParseToString(Vector3 p)
+    {
         return $"({p.x.ToString("F1", CultureInfo.InvariantCulture)}, " +
               $"{p.y.ToString("F1", CultureInfo.InvariantCulture)}, " +
               $"{p.z.ToString("F1", CultureInfo.InvariantCulture)})";
@@ -103,27 +114,36 @@ public class TestManager : MonoBehaviour
         }
     }
 
-    void SendGetData()
+    private static void SendGetData()
     {
+        Debug.Log("ThreadStarted");
+            while (true)
+            {
+                //Debug.Log("threding");
+                try
+                {
+                    IPEndPoint ep = null;
+                    //byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
+                    byte[] msg = Encoding.ASCII.GetBytes(udpSend);
+                    udpc.Send(msg, msg.Length);
 
-        if (dataFlag) return;
+                    byte[] rdata = udpc.Receive(ref ep);
+                    udpGet = Encoding.ASCII.GetString(rdata);
 
-        dataFlag = true;
+                    
 
-        byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
-        udpc.Send(msg, msg.Length);
-
-        byte[] rdata = udpc.Receive(ref ep);
-        dataFlag = false;
-        string message = Encoding.ASCII.GetString(rdata);
-
-        if (message == "<P0>") return;
-
-        Debug.Log(message.Substring(4, message.Length - 4));
-        GetData(message.Substring(4, message.Length - 4));
+                    //Debug.Log(udpGet.Substring(4, udpGet.Length - 4));
+                    //GetData(message.Substring(4, message.Length - 4));
+                }
+                catch (SocketException ex)
+                {
+                    Debug.LogError("Socket Exception: " + ex.Message);
+                    // Handle errors gracefully, e.g., log or attempt to reconnect
+                }
+            }
         
-            
         
-        
+        // Allow the thread to start
     }
+
 }
