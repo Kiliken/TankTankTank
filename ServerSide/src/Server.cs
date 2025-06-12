@@ -12,8 +12,8 @@ class StudentUDPServer
         UdpClient udpc = new UdpClient(25565);
         IPEndPoint ep = null;
         byte[] sdata;
-        string p1Data = "<P0>";
-        string p2Data = "<P0>";
+        string p1Data = "N";
+        string p2Data = "N";
         byte[] receivedData;
         string message;
 
@@ -22,8 +22,8 @@ class StudentUDPServer
 
 
             Console.Clear();
-            Console.WriteLine(p1Data);
-            Console.WriteLine(p2Data);
+            Console.WriteLine("<P1>" + p1Data);
+            Console.WriteLine("<P2>" + p2Data);
 
             // Store received data from client
             receivedData = udpc.Receive(ref ep);
@@ -37,24 +37,24 @@ class StudentUDPServer
 
             
 
-            if (message.Substring(0, 4) == "<P1>")
+            if (message.Substring(0, 1) == "A")
             {
                 p1Data = message;
-                if (p2Data == "<P0>")
+                if (p2Data == "N")
                 {
-                    sdata = Encoding.ASCII.GetBytes("<P0>");
+                    sdata = Encoding.ASCII.GetBytes("N");
                     udpc.Send(sdata, sdata.Length, ep);
                     continue;
                 }
                 sdata = Encoding.ASCII.GetBytes(p2Data);
                 udpc.Send(sdata, sdata.Length, ep);
             }
-            else if (message.Substring(0, 4) == "<P2>")
+            else if (message.Substring(0, 1) == "B")
             {
                 p2Data = message;
-                if (p1Data == "<P0>")
+                if (p1Data == "N")
                 {
-                    sdata = Encoding.ASCII.GetBytes("<P0>");
+                    sdata = Encoding.ASCII.GetBytes("N");
                     udpc.Send(sdata, sdata.Length, ep);
                     continue;
                 }

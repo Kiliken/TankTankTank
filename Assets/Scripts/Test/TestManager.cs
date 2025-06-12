@@ -14,7 +14,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class TestManager : MonoBehaviour
 {
-    public string playerSide = "<P1>";
+    public string playerSide = "A";
     [SerializeField] TestMovement player;
     [SerializeField] OtherMovement playerOther;
     string playerPosString;
@@ -27,8 +27,8 @@ public class TestManager : MonoBehaviour
     private Thread udpDataThread;
     private bool udpRunnig = true;
 
-    static volatile string udpSend = "<P0>";
-    static volatile string udpGet  = "<P0>";
+    static volatile string udpSend = "N";
+    static volatile string udpGet  = "N";
 
     // Start is called before the first frame update
     void Awake()
@@ -52,7 +52,7 @@ public class TestManager : MonoBehaviour
         udpSend = $"{playerSide}{ParseToString(player.transform.position)}";
 
 
-        if (udpGet != "<P0>")
+        if (udpGet != "N")
             GetData(udpGet.Substring(4, udpGet.Length - 4));
 
     }
