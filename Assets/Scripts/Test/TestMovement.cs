@@ -30,6 +30,7 @@ public class TestMovement : MonoBehaviour
     void Update()
     {
         PlayerInput();
+        //Debug.Log(NetManager.ParseData(this.transform));
     }
 
     private void FixedUpdate()

@@ -27,6 +27,8 @@ public class TestManager : MonoBehaviour
     private Thread udpDataThread;
     private bool udpRunnig = true;
 
+    private NetData data;
+
     static volatile string udpSend = "N";
     static volatile string udpGet  = "N";
 
@@ -44,16 +46,25 @@ public class TestManager : MonoBehaviour
         udpc.Client.ReceiveTimeout = 1000;
         udpDataThread = new Thread(new ThreadStart(SendGetData));
         udpDataThread.Start();
+
+        float test123 = 2.53f;
+        Debug.Log(test123.ToString("000.000", CultureInfo.InvariantCulture));
+        Debug.Log(CultureInfo.InvariantCulture);
     }
 
     // Update is called once per frame
     void Update()
     {
-        udpSend = $"{playerSide}{ParseToString(player.transform.position)}";
+        udpSend = $"{playerSide}{NetManager.ParseData(player.transform)}";
 
 
         if (udpGet != "N")
-            GetData(udpGet.Substring(4, udpGet.Length - 4));
+        {
+            //GetData(udpGet.Substring(1, udpGet.Length - 1));
+            data = NetManager.RetriveData(udpGet.Substring(1, udpGet.Length - 1));
+            playerOther.movePos = new Vector3(data.posX,data.posY,data.posZ);
+        }
+            
 
     }
 

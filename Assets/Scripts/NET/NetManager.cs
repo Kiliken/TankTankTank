@@ -116,10 +116,52 @@ public static class NetManager
         return data;
     }
 
+    /*public static NetData RetriveData(string str)
+    {
+        NetData data = new NetData();
+        string[] parts = str.Split(',');
+        if (parts.Length != 6)
+        {
+            Debug.LogError("Invalid Vector3 format: " + str);
+            return null;
+        }
+        try
+        {
+            data.posX = float.Parse(parts[0], CultureInfo.InvariantCulture);
+            data.posY = float.Parse(parts[1], CultureInfo.InvariantCulture);
+            data.posZ = float.Parse(parts[2], CultureInfo.InvariantCulture);
+            data.rotX = float.Parse(parts[3], CultureInfo.InvariantCulture);
+            data.rotY = float.Parse(parts[4], CultureInfo.InvariantCulture);
+            data.rotZ = float.Parse(parts[5], CultureInfo.InvariantCulture);
+            return data;
+        }
+        catch (System.FormatException e)
+        {
+            Debug.LogError("Failed to parse Vector3: " + e.Message);
+            return null;
+        }
+    }*/
+
     public static string ParseData(Transform p)
     {
-       
-        return null;
+        string test = "";
+        string str = "";
+        test = $"+{p.position.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"+{p.position.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"+{p.position.z.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{p.rotation.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{p.rotation.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{p.rotation.z.ToString("000.00", CultureInfo.InvariantCulture)}";
+
+        //test = test.Replace("-", string.Empty);
+        test = test.Replace(".", string.Empty);
+        test = test.Replace("+-", "-");
+
+        char[] converter = str.ToCharArray(0, str.Length);
+        
+        //make a string of ++- +-- and swith then add the flag at the head of the test string
+
+        return test;
     }
 }
 
