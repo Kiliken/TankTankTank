@@ -42,7 +42,7 @@ public class TankMovement2 : MonoBehaviour
         SpeedControl();
         if(rotInput != 0)
         {
-            targetModelRotation = Quaternion.LookRotation(rotDirection.normalized, Vector3.up);
+            targetModelRotation = Quaternion.LookRotation(rotDirection, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetModelRotation, Time.deltaTime);
 
         }
@@ -63,14 +63,14 @@ public class TankMovement2 : MonoBehaviour
         }
         else if(horizontalInput + verticalInput > 0)
         {
-            moveInput = (horizontalInput + verticalInput - Mathf.Abs(verticalInput - horizontalInput)) / 2;
+            moveInput = (horizontalInput + verticalInput - Mathf.Abs(verticalInput - horizontalInput) / 2) / 2;
         }
         else if (horizontalInput + verticalInput < 0)
         {
-            moveInput = (horizontalInput + verticalInput + Mathf.Abs(verticalInput - horizontalInput)) / 2;
+            moveInput = (horizontalInput + verticalInput + Mathf.Abs(verticalInput - horizontalInput) / 2) / 2;
         }
 
-        rotInput = verticalInput - horizontalInput;
+        rotInput = (verticalInput - horizontalInput) / 2;
         
 
         moveSpeed = (moveInput != 0) ? moveSpeedDefault : 0f;
