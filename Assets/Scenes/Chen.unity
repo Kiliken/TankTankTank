@@ -495,14 +495,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308842843}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.7838902, y: -7.98, z: -23.577715}
+  m_LocalRotation: {x: 0.0056439918, y: 0.8441523, z: 0.0035841013, w: 0.53606176}
+  m_LocalPosition: {x: 2.9276438, y: -7.9741406, z: -22.925604}
   m_LocalScale: {x: 4, y: 1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 952228243}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 115.166, z: 0.766}
 --- !u!54 &1308842848
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -513,7 +513,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -542,8 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874afe04ac4a2644c833b6ab015b2901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftTrigger: 1
-  rightTrigger: 0.8
+  leftTrigger: -1
+  rightTrigger: -1
   velocity: 0
   force: 0
   diff: 0

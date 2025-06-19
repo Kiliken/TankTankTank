@@ -27,8 +27,22 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         diff = leftTrigger - rightTrigger;
-        rotateVelocity += diff;
-        if(rotateVelocity > 0)
+        force = (Mathf.Abs(rightTrigger) + Mathf.Abs(leftTrigger));
+        float accForce = Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2) + (Mathf.Pow(rb.velocity.z, 2)));
+
+        if (accForce < 20f)
+        {
+            //rb.AddForce
+
+            rb.AddForce(transform.forward * force * Time.deltaTime * 100f);
+        }
+        if (velocity > 0)
+        {
+
+        }
+
+        rotateVelocity = diff;
+        if (rotateVelocity > 0)
         {
             rotateVelocity = Mathf.Min(rotateVelocity, 0.5f);
 
@@ -38,15 +52,24 @@ public class PlayerMovement : MonoBehaviour
             rotateVelocity = Mathf.Max(rotateVelocity, -0.5f);
         }
 
-        transform.Rotate(0, rotateVelocity * Time.deltaTime * 100f, 0);
+        rb.AddTorque(0, rotateVelocity * Time.deltaTime * 10f, 0);
+        
 
+        
+        Debug.Log(rb.velocity);
+        Debug.Log(accForce);
 
-        force = (Mathf.Abs(rightTrigger) + Mathf.Abs(leftTrigger) - Mathf.Abs(diff));
-        velocity += force * Time.deltaTime;
-        if (velocity < 10f)
+        if (diff != 0)
         {
-            rb.AddForce(transform.forward * force * Time.deltaTime * 100f);
+            
+            rb.velocity = Vector3.zero;
+            rb.velocity = new Vector3(accForce * Mathf.Sin(diff * Time.deltaTime * 10f), 0, accForce * Mathf.Cos(diff * Time.deltaTime * 10f));
+
         }
+
+
+      
+
         
     }
 }
