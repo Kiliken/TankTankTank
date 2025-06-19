@@ -501,6 +501,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: tank
       objectReference: {fileID: 0}
+    - target: {fileID: 5090479995813083593, guid: 235c358bdd15ade4683a85ce9d217531,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 103.72203
+      objectReference: {fileID: 0}
+    - target: {fileID: 5090479995813083593, guid: 235c358bdd15ade4683a85ce9d217531,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 126.923676
+      objectReference: {fileID: 0}
+    - target: {fileID: 5090479995813083593, guid: 235c358bdd15ade4683a85ce9d217531,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 126.923676
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
