@@ -88,8 +88,8 @@ public static class NetManager
         data.posY /= 100;
         data.posZ /= 100;
         data.rotX /= 100;
-        data.rotX /= 100;
         data.rotY /= 100;
+        data.rotZ /= 100;
 
         switch (converter[1])
         {
@@ -156,8 +156,8 @@ public static class NetManager
         //test = test.Replace("-", string.Empty);
         test = test.Replace(".", string.Empty);
         test = test.Replace("+-", "-");
-
-        char[] converter = str.ToCharArray(0, str.Length);
+		test = test.Replace("+", "0");
+        
         
         //make a string of ++- +-- and swith then add the flag at the head of the test string
 
