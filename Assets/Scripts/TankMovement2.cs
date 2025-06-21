@@ -99,7 +99,7 @@ public class TankMovement2 : MonoBehaviour
             returned = false;
         }
         sinceFire += Time.deltaTime;
-        if (sinceFire > 1f && returned == false)
+        if (sinceFire > 0.1f && returned == false)
         {
             returned = true;
             turret.ReturnPos();

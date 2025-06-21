@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
-    [SerializeField] Transform orientation;
-    private Vector3 originalRelativePosition;
+    [SerializeField] private ParticleSystem muzzleFlash;
 
     // Start is called before the first frame update
     void Start()
     {
-        originalRelativePosition = transform.position - transform.parent.position;
+        
     }
 
     // Update is called once per frame
@@ -22,11 +21,12 @@ public class Canon : MonoBehaviour
 
     public void Fire()
     {
-        transform.position = orientation.position + transform.parent.position * 0.1f;
+        transform.position -= transform.forward * 0.5f;
+        muzzleFlash.Play();
         
     }
     public void ReturnPos()
     {
-        transform.position = orientation.position + transform.parent.position * 0.12f;
+        transform.position += transform.forward * 0.5f;
     }
 }
