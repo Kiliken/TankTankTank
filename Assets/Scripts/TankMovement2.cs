@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class TankMovement2 : MonoBehaviour
@@ -16,10 +17,16 @@ public class TankMovement2 : MonoBehaviour
     private float moveInput;
     private float rotInput;
 
+    [SerializeField] Turret turret;
+
     private Vector3 moveDirection;
     Transform orientation;
     private Quaternion targetModelRotation;
     private Vector3 rotDirection;
+
+    private float returnInterval = 0.5f;
+    private float sinceFire = 0f;
+    private bool returned = true;
 
 
     // Start is called before the first frame update
@@ -74,6 +81,29 @@ public class TankMovement2 : MonoBehaviour
         
 
         moveSpeed = (moveInput != 0) ? moveSpeedDefault : 0f;
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            turret.TurnLeft();
+        }
+
+        if (Input.GetKey(KeyCode.L)) {
+            turret.TurnRight();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            turret.Fire();
+            sinceFire = 0f;
+            returned = false;
+        }
+        sinceFire += Time.deltaTime;
+        if (sinceFire > 1f && returned == false)
+        {
+            returned = true;
+            turret.ReturnPos();
+        }
     }
 
     private void Movement()
