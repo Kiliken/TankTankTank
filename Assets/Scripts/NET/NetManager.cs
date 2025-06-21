@@ -81,8 +81,8 @@ public static class NetManager
         data.posY = float.Parse(new string(converter, 7, 6));
         data.posZ = float.Parse(new string(converter, 13, 6));
         data.rotX = float.Parse(new string(converter, 19, 5));
-        data.rotX = float.Parse(new string(converter, 24, 5));
-        data.rotY = float.Parse(new string(converter, 29, 5));
+        data.rotY = float.Parse(new string(converter, 24, 5));
+        data.rotZ = float.Parse(new string(converter, 29, 5));
 
         data.posX /= 100;
         data.posY /= 100;
@@ -148,9 +148,9 @@ public static class NetManager
         test = $"+{p.position.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.z.ToString("000.00", CultureInfo.InvariantCulture)}" +
-               $"{p.rotation.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
-               $"{p.rotation.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
-               $"{p.rotation.z.ToString("000.00", CultureInfo.InvariantCulture)}";
+               $"{p.eulerAngles.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{p.eulerAngles.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{p.eulerAngles.z.ToString("000.00", CultureInfo.InvariantCulture)}";
 
         //test = test.Replace("-", string.Empty);
         test = test.Replace(".", string.Empty);

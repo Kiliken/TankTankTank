@@ -15,8 +15,8 @@ using Vector3 = UnityEngine.Vector3;
 public class TestManager : MonoBehaviour
 {
     public string playerSide = "A";
-    [SerializeField] TestMovement player;
-    [SerializeField] OtherMovement playerOther;
+    [SerializeField] Transform player;
+    [SerializeField] Transform playerOther;
     string playerPosString;
 
     [SerializeField] string ip = "127.0.0.1";
@@ -62,7 +62,7 @@ public class TestManager : MonoBehaviour
         {
             //GetData(udpGet.Substring(1, udpGet.Length - 1));
             data = NetManager.RetriveData(udpGet);
-            playerOther.movePos = new Vector3(data.posX,data.posY,data.posZ);
+            playerOther.position = Vector3.Lerp(playerOther.position, new Vector3(data.posX,data.posY,data.posZ), Time.deltaTime * 10f);
         }
             
 
@@ -75,10 +75,10 @@ public class TestManager : MonoBehaviour
     }
 
 
-    public void GetData(string s)
+    /*public void GetData(string s)
     {
         playerOther.movePos = ParseVector3(s);
-    }
+    }*/
 
 
     public void SendData(Vector3 p)
@@ -156,6 +156,12 @@ public class TestManager : MonoBehaviour
         
         
         // Allow the thread to start
+    }
+
+    void UpdatePosition()
+    {
+        playerOther.position = Vector3.Lerp(playerOther.position, new Vector3(data.posX, data.posY, data.posZ), Time.deltaTime * 10f);
+        playerOther.eulerAngles = Vector3.Lerp(playerOther.position, new Vector3(data.rotX, data.rotY, data.rotZ), Time.deltaTime * 10f);
     }
 
 }
