@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 2515714524767419798}
   - component: {fileID: 349613481192625615}
   - component: {fileID: 3838002016416983180}
+  - component: {fileID: 5640335209674430026}
   m_Layer: 0
   m_Name: TankCannon
   m_TagString: Untagged
@@ -517,7 +518,7 @@ Transform:
   m_GameObject: {fileID: 4978088143228260332}
   serializedVersion: 2
   m_LocalRotation: {x: 0.69996536, y: -0.00012855376, z: -0.0006692806, w: -0.7141764}
-  m_LocalPosition: {x: 0.00008792268, y: 0.01239, z: -0.00232}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00232}
   m_LocalScale: {x: 0.16616584, y: 0.16616584, z: 0.16616586}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -587,6 +588,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 1004556497212956454}
+--- !u!65 &5640335209674430026
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978088143228260332}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.022464272, y: 0.036242474, z: 0.21756217}
+  m_Center: {x: 0.0008220813, y: -0.000000015194631, z: 0.1087791}
 --- !u!1 &5197972312522691530
 GameObject:
   m_ObjectHideFlags: 0
