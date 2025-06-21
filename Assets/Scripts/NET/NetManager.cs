@@ -80,15 +80,15 @@ public static class NetManager
         data.posX = float.Parse(new string(converter, 1, 6));
         data.posY = float.Parse(new string(converter, 7, 6));
         data.posZ = float.Parse(new string(converter, 13, 6));
-        data.rotX = float.Parse(new string(converter, 19, 5));
-        data.rotY = float.Parse(new string(converter, 24, 5));
+        data.rotBody = float.Parse(new string(converter, 19, 5));
+        data.rotHead = float.Parse(new string(converter, 24, 5));
         data.rotZ = float.Parse(new string(converter, 29, 5));
 
         data.posX /= 100;
         data.posY /= 100;
         data.posZ /= 100;
-        data.rotX /= 100;
-        data.rotY /= 100;
+        data.rotBody /= 100;
+        data.rotHead /= 100;
         data.rotZ /= 100;
 
         /*switch (converter[1])
@@ -142,14 +142,14 @@ public static class NetManager
         }
     }*/
 
-    public static string ParseData(Transform p)
+    public static string ParseData(Transform p,float r)
     {
         string test = "";
         test = $"+{p.position.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.z.ToString("000.00", CultureInfo.InvariantCulture)}" +
-               $"{p.eulerAngles.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"{p.eulerAngles.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
+               $"{r.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"{p.eulerAngles.z.ToString("000.00", CultureInfo.InvariantCulture)}";
 
         //test = test.Replace("-", string.Empty);
@@ -170,8 +170,8 @@ public class NetData
     public float posX;
     public float posY;
     public float posZ;
-    public float rotX;
-    public float rotY;
+    public float rotBody;
+    public float rotHead;
     public float rotZ;
 }
 

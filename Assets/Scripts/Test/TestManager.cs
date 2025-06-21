@@ -17,6 +17,8 @@ public class TestManager : MonoBehaviour
     public string playerSide = "A";
     [SerializeField] Transform player;
     [SerializeField] Transform playerOther;
+    [SerializeField] Transform playerHead;
+    [SerializeField] Transform playerOtherHead;
     string playerPosString;
 
     [SerializeField] string ip = "127.0.0.1";
@@ -55,14 +57,14 @@ public class TestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        udpSend = $"{playerSide}{NetManager.ParseData(player.transform)}";
+        udpSend = $"{playerSide}{NetManager.ParseData(player.transform, playerHead.eulerAngles.y )}";
 
 
         if (udpGet != "N")
         {
             //GetData(udpGet.Substring(1, udpGet.Length - 1));
             data = NetManager.RetriveData(udpGet);
-            playerOther.position = Vector3.Lerp(playerOther.position, new Vector3(data.posX,data.posY,data.posZ), Time.deltaTime * 10f);
+            UpdatePosition();
         }
             
 
@@ -161,7 +163,9 @@ public class TestManager : MonoBehaviour
     void UpdatePosition()
     {
         playerOther.position = Vector3.Lerp(playerOther.position, new Vector3(data.posX, data.posY, data.posZ), Time.deltaTime * 10f);
-        playerOther.eulerAngles = Vector3.Lerp(playerOther.position, new Vector3(data.rotX, data.rotY, data.rotZ), Time.deltaTime * 10f);
+        playerOther.eulerAngles = new Vector3(0, data.rotBody, 0);
+        playerOtherHead.eulerAngles = new Vector3(-90, data.rotHead, 0);
+        //
     }
 
 }
