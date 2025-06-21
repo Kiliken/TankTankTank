@@ -77,12 +77,12 @@ public static class NetManager
         if (converter[0] == 'N')
             return null;
 
-        data.posX = float.Parse(new string(converter, 2, 5));
-        data.posY = float.Parse(new string(converter, 7, 5));
-        data.posZ = float.Parse(new string(converter, 12, 5));
-        data.rotX = float.Parse(new string(converter, 17, 5));
-        data.rotX = float.Parse(new string(converter, 22, 5));
-        data.rotY = float.Parse(new string(converter, 27, 5));
+        data.posX = float.Parse(new string(converter, 1, 6));
+        data.posY = float.Parse(new string(converter, 7, 6));
+        data.posZ = float.Parse(new string(converter, 13, 6));
+        data.rotX = float.Parse(new string(converter, 19, 5));
+        data.rotX = float.Parse(new string(converter, 24, 5));
+        data.rotY = float.Parse(new string(converter, 29, 5));
 
         data.posX /= 100;
         data.posY /= 100;
@@ -91,7 +91,7 @@ public static class NetManager
         data.rotY /= 100;
         data.rotZ /= 100;
 
-        switch (converter[1])
+        /*switch (converter[1])
         {
             case '1':
                 data.posX *= -1;
@@ -112,7 +112,7 @@ public static class NetManager
                 data.posX *= -1;
                 data.posY *= -1;
                 break;
-        }
+        }*/
         return data;
     }
 
@@ -145,7 +145,6 @@ public static class NetManager
     public static string ParseData(Transform p)
     {
         string test = "";
-        string str = "";
         test = $"+{p.position.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.y.ToString("000.00", CultureInfo.InvariantCulture)}" +
                $"+{p.position.z.ToString("000.00", CultureInfo.InvariantCulture)}" +

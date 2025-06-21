@@ -61,7 +61,7 @@ public class TestManager : MonoBehaviour
         if (udpGet != "N")
         {
             //GetData(udpGet.Substring(1, udpGet.Length - 1));
-            data = NetManager.RetriveData(udpGet.Substring(1, udpGet.Length - 1));
+            data = NetManager.RetriveData(udpGet);
             playerOther.movePos = new Vector3(data.posX,data.posY,data.posZ);
         }
             

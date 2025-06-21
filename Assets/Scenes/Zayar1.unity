@@ -450,10 +450,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa3e23d3d98ac04abce71f88f802ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSide: A
+  playerSide: B
   player: {fileID: 194107761}
   playerOther: {fileID: 82296087}
-  ip: 127.0.0.1
+  ip: 10.208.1.88
   port: 25565
 --- !u!4 &420737707
 Transform:

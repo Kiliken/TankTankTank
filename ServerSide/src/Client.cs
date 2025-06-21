@@ -18,7 +18,7 @@ class StudentUDPClient
         // Prevent example from ending if CTL+C is pressed.
 
         Console.WriteLine("PLAYER SIDE: ");
-        string side = Console.ReadLine() == "1" ? "<P1>" : "<P2>";
+        string side = Console.ReadLine() == "1" ? "A" : "B";
         ConsoleKeyInfo cki;
 
         //Console.TreatControlCAsInput = true;
