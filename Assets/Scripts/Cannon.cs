@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Canon : MonoBehaviour
+public class Cannon : MonoBehaviour
 {
     [SerializeField] private ParticleSystem muzzleFlash;
 

@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
 {
 
     [SerializeField] private float turnSpeed = 30f;
-    [SerializeField] private Canon canon;
+    [SerializeField] private Cannon cannon;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +32,11 @@ public class Turret : MonoBehaviour
 
     public void Fire()
     {
-        canon.Fire();
+        cannon.Fire();
     }
 
     public void ReturnPos()
     {
-        canon.ReturnPos();
+        cannon.ReturnPos();
     }
 }
