@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa3e23d3d98ac04abce71f88f802ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSide: 66
+  playerSide: 65
   player: {fileID: 958099227}
   playerOther: {fileID: 82296086}
   playerHead: {fileID: 958099226}

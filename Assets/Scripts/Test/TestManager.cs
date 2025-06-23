@@ -33,8 +33,8 @@ public class TestManager : MonoBehaviour
 
     private NetData data;
 
-    static volatile string udpSend = "N";
-    static volatile string udpGet  = "N";
+    static volatile byte[] udpSend = new byte[] { 0x4E };
+    static volatile byte[] udpGet  = new byte[] { 0x4E };
 
     // Start is called before the first frame update
     void Awake()
@@ -50,20 +50,18 @@ public class TestManager : MonoBehaviour
         udpc.Client.ReceiveTimeout = 1000;
         udpDataThread = new Thread(new ThreadStart(SendGetData));
         udpDataThread.Start();
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        udpSend = $"{playerSide}{NetManager.ParseData(player.transform, playerHead.eulerAngles.y )}";
+        udpSend = NetManager.ParseByte(playerSide, player.transform, playerHead.eulerAngles.y);
+        //Debug.Log(Encoding.ASCII.GetString(udpSend));
 
-
-        if (udpGet != "N")
+        if (udpGet[0] != 0x4E)
         {
             //GetData(udpGet.Substring(1, udpGet.Length - 1));
-            data = NetManager.RetriveData(udpGet);
+            data = NetManager.RetriveByte(udpGet);
             UpdatePosition();
         }
             
@@ -143,11 +141,12 @@ public class TestManager : MonoBehaviour
                 stopWatch.Reset();
                 stopWatch.Start();
                 //byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
-                byte[] msg = Encoding.ASCII.GetBytes(udpSend);
-                udpc.Send(msg, msg.Length);
+                //byte[] msg = Encoding.ASCII.GetBytes(udpSend);
+                udpc.Send(udpSend, udpSend.Length);
 
-                byte[] rdata = udpc.Receive(ref ep);
-                udpGet = Encoding.ASCII.GetString(rdata);
+                //byte[] rdata = udpc.Receive(ref ep);
+                //udpGet = Encoding.ASCII.GetString(rdata);
+                udpGet = udpc.Receive(ref ep);
 
                 stopWatch.Stop();
                 timeSpan = stopWatch.ElapsedMilliseconds;

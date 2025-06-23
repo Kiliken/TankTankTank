@@ -146,14 +146,16 @@ public static class NetManager
         return data;
     }
 
-    public static byte[] ParseByte(Transform p, float r)
+    public static byte[] ParseByte(char side, Transform p, float r)
     {
         byte[] test = new byte[0];
-        test.Concat(BitConverter.GetBytes(p.position.x));
-        test.Concat(BitConverter.GetBytes(p.position.y));
-        test.Concat(BitConverter.GetBytes(p.position.z));
-        test.Concat(BitConverter.GetBytes(p.eulerAngles.y));
-        test.Concat(BitConverter.GetBytes(r));
+
+        test = test.Concat(new byte[] { (byte)side }).ToArray();
+        test = test.Concat(BitConverter.GetBytes(p.position.x)).ToArray();
+        test = test.Concat(BitConverter.GetBytes(p.position.y)).ToArray();
+        test = test.Concat(BitConverter.GetBytes(p.position.z)).ToArray();
+        test = test.Concat(BitConverter.GetBytes(p.eulerAngles.y)).ToArray();
+        test = test.Concat(BitConverter.GetBytes(r)).ToArray();
 
 
         //make a string of ++- +-- and swith then add the flag at the head of the test string
