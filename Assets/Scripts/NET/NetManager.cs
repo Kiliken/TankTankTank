@@ -9,7 +9,9 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using System.Threading;
-
+using System.ComponentModel;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 /*
 
 Data:
@@ -38,21 +40,31 @@ public static class NetManager
 
     public static UdpClient udpc;
 
-    public static void SendGetData()
+    private static void SendGetData()
     {
+        long timeSpan = 0;
+        Stopwatch stopWatch = new Stopwatch();
         Debug.Log("ThreadStarted");
+        
         while (true)
         {
             //Debug.Log("threding");
             try
             {
                 IPEndPoint ep = null;
+                stopWatch.Reset();
+                stopWatch.Start();
                 //byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
                 byte[] msg = Encoding.ASCII.GetBytes(udpSend);
                 udpc.Send(msg, msg.Length);
 
                 byte[] rdata = udpc.Receive(ref ep);
                 udpGet = Encoding.ASCII.GetString(rdata);
+
+                stopWatch.Stop();
+                timeSpan = stopWatch.ElapsedMilliseconds;
+                if (timeSpan < 45)
+                    Thread.Sleep((int)(45 - timeSpan));
 
 
 
@@ -65,7 +77,8 @@ public static class NetManager
                 // Handle errors gracefully, e.g., log or attempt to reconnect
             }
         }
-
+        
+        
         // Allow the thread to start
     }
 
@@ -115,6 +128,38 @@ public static class NetManager
         }*/
         return data;
     }
+    
+    public static NetData RetriveByte(byte[] bytes)
+    {
+        NetData data = new NetData();
+        //char[] converter = str.ToCharArray(0, str.Length);
+
+        if (bytes[0] == 0x4E)
+            return null;
+        
+        data.posX = BitConverter.ToSingle(bytes, 1);
+        data.posY = BitConverter.ToSingle(bytes, 5);
+        data.posZ = BitConverter.ToSingle(bytes, 9);
+        data.rotBody = BitConverter.ToSingle(bytes, 13);
+        data.rotHead = BitConverter.ToSingle(bytes, 17);
+        
+        return data;
+    }
+
+    public static byte[] ParseByte(Transform p, float r)
+    {
+        byte[] test = new byte[0];
+        test.Concat(BitConverter.GetBytes(p.position.x));
+        test.Concat(BitConverter.GetBytes(p.position.y));
+        test.Concat(BitConverter.GetBytes(p.position.z));
+        test.Concat(BitConverter.GetBytes(p.eulerAngles.y));
+        test.Concat(BitConverter.GetBytes(r));
+
+
+        //make a string of ++- +-- and swith then add the flag at the head of the test string
+
+        return test;
+    }
 
     /*public static NetData RetriveData(string str)
     {
@@ -142,7 +187,7 @@ public static class NetManager
         }
     }*/
 
-    public static string ParseData(Transform p,float r)
+    public static string ParseData(Transform p, float r)
     {
         string test = "";
         test = $"+{p.position.x.ToString("000.00", CultureInfo.InvariantCulture)}" +
@@ -155,9 +200,9 @@ public static class NetManager
         //test = test.Replace("-", string.Empty);
         test = test.Replace(".", string.Empty);
         test = test.Replace("+-", "-");
-		test = test.Replace("+", "0");
-        
-        
+        test = test.Replace("+", "0");
+
+
         //make a string of ++- +-- and swith then add the flag at the head of the test string
 
         return test;

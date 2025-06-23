@@ -11,8 +11,8 @@ class BasicUdpServer
     static int port = 25565;
     static UdpClient udpc = new UdpClient(port);
     
-    static volatile string p1Data = "N";
-    static volatile string p2Data = "N";
+    static volatile byte[] p1Data;
+    static volatile byte[] p2Data;
 
 
     public static void Main()
@@ -29,14 +29,14 @@ class BasicUdpServer
 
             if (command == "data")
             {
-                Console.WriteLine("[Server] Player 1: " + p1Data);
-                Console.WriteLine("[Server] Player 2: " + p2Data);
+                Console.WriteLine("[Server] Player 1: " + Encoding.ASCII.GetString(p1Data));
+                Console.WriteLine("[Server] Player 2: " + Encoding.ASCII.GetString(p2Data));
             }
 
             if (command == "reset")
             {
-                p1Data = "N";
-                p2Data = "N";
+                p1Data = new byte[] { 0x4E };
+                p2Data = new byte[] { 0x4E };
                 Console.WriteLine("[Server] data resetted ");
             }
 
@@ -57,7 +57,11 @@ class BasicUdpServer
     {
         byte[] sdata;
         byte[] receivedData;
-        string message;
+        //string message;
+
+        p1Data = new byte[] { 0x4E };
+        p2Data = new byte[] { 0x4E };
+		
 
         while (true)
         {
@@ -67,32 +71,32 @@ class BasicUdpServer
                 IPEndPoint ep = null;
                 receivedData = udpc.Receive(ref ep);
 
-                message = Encoding.ASCII.GetString(receivedData);
+                //message = Encoding.ASCII.GetString(receivedData);
 
 
-                if (message.Substring(0, 1) == "A")
+                if (receivedData[0] == 0x41)
                 {
-                    p1Data = message;
-                    if (p2Data == "N")
+                    p1Data = receivedData;
+                    if (p2Data[0] == 0x4E)
                     {
                         sdata = Encoding.ASCII.GetBytes("N");
                         udpc.Send(sdata, sdata.Length, ep);
                         continue;
                     }
-                    sdata = Encoding.ASCII.GetBytes(p2Data);
-                    udpc.Send(sdata, sdata.Length, ep);
+                    //sdata = Encoding.ASCII.GetBytes(p2Data);
+                    udpc.Send(p2Data, p2Data.Length, ep);
                 }
-                else if (message.Substring(0, 1) == "B")
+                else if (receivedData[0] == 0x42)
                 {
-                    p2Data = message;
-                    if (p1Data == "N")
+                    p2Data = receivedData;
+                    if (p1Data[0] == 0x4E)
                     {
                         sdata = Encoding.ASCII.GetBytes("N");
                         udpc.Send(sdata, sdata.Length, ep);
                         continue;
                     }
-                    sdata = Encoding.ASCII.GetBytes(p1Data);
-                    udpc.Send(sdata, sdata.Length, ep);
+                    //sdata = Encoding.ASCII.GetBytes(p1Data);
+                    udpc.Send(p1Data, p1Data.Length, ep);
                 }
 
                 //Debug.Log(udpGet.Substring(4, udpGet.Length - 4));

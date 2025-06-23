@@ -8,13 +8,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
+using System.Diagnostics;
 using System.Threading;
 using Vector3 = UnityEngine.Vector3;
+using Debug = UnityEngine.Debug;
 
 
 public class TestManager : MonoBehaviour
 {
-    public string playerSide = "A";
+    public char playerSide = 'A';
     [SerializeField] Transform player;
     [SerializeField] Transform playerOther;
     [SerializeField] Transform playerHead;
@@ -49,9 +51,7 @@ public class TestManager : MonoBehaviour
         udpDataThread = new Thread(new ThreadStart(SendGetData));
         udpDataThread.Start();
 
-        float test123 = 2.53f;
-        Debug.Log(test123.ToString("000.000", CultureInfo.InvariantCulture));
-        Debug.Log(CultureInfo.InvariantCulture);
+        
     }
 
     // Update is called once per frame
@@ -130,31 +130,41 @@ public class TestManager : MonoBehaviour
 
     private static void SendGetData()
     {
+        long timeSpan = 0;
+        Stopwatch stopWatch = new Stopwatch();
         Debug.Log("ThreadStarted");
-            while (true)
+        
+        while (true)
+        {
+            //Debug.Log("threding");
+            try
             {
-                //Debug.Log("threding");
-                try
-                {
-                    IPEndPoint ep = null;
-                    //byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
-                    byte[] msg = Encoding.ASCII.GetBytes(udpSend);
-                    udpc.Send(msg, msg.Length);
+                IPEndPoint ep = null;
+                stopWatch.Reset();
+                stopWatch.Start();
+                //byte[] msg = Encoding.ASCII.GetBytes($"{playerSide}{ParseToString(player.transform.position)}");
+                byte[] msg = Encoding.ASCII.GetBytes(udpSend);
+                udpc.Send(msg, msg.Length);
 
-                    byte[] rdata = udpc.Receive(ref ep);
-                    udpGet = Encoding.ASCII.GetString(rdata);
+                byte[] rdata = udpc.Receive(ref ep);
+                udpGet = Encoding.ASCII.GetString(rdata);
 
-                    
+                stopWatch.Stop();
+                timeSpan = stopWatch.ElapsedMilliseconds;
+                if (timeSpan < 45)
+                    Thread.Sleep((int)(45 - timeSpan));
 
-                    //Debug.Log(udpGet.Substring(4, udpGet.Length - 4));
-                    //GetData(message.Substring(4, message.Length - 4));
-                }
-                catch (SocketException ex)
-                {
-                    Debug.LogError("Socket Exception: " + ex.Message);
-                    // Handle errors gracefully, e.g., log or attempt to reconnect
-                }
+
+
+                //Debug.Log(udpGet.Substring(4, udpGet.Length - 4));
+                //GetData(message.Substring(4, message.Length - 4));
             }
+            catch (SocketException ex)
+            {
+                Debug.LogError("Socket Exception: " + ex.Message);
+                // Handle errors gracefully, e.g., log or attempt to reconnect
+            }
+        }
         
         
         // Allow the thread to start
