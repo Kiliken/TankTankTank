@@ -11,6 +11,15 @@ public class TankMovement2 : MonoBehaviour
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] float moveSpeedDefault = 10f;
     [SerializeField] float moveSpeedDash = 100f;
+
+    [SerializeField] private AudioSource engineAudioSource;
+    [SerializeField] private float moveThreshold = 0.1f;
+    [SerializeField] private float maxVolume = 1f;
+    [SerializeField] private float fadeSpeed = 2f; // How fast volume changes
+    [SerializeField] private float minVolume = 0.1f;
+
+
+
     private float horizontalInput;
     private float verticalInput;
 
@@ -29,18 +38,23 @@ public class TankMovement2 : MonoBehaviour
     private bool returned = true;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         orientation = gameObject.transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerInput();
+
+        SoundControl();
     }
 
     private void FixedUpdate()
@@ -124,5 +138,18 @@ public class TankMovement2 : MonoBehaviour
             Vector3 limitedVel = flatVet.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    private void SoundControl()
+    {
+        float speed = rb.velocity.magnitude;
+        float targetVolume = (speed > moveThreshold) ? maxVolume : minVolume;
+
+        engineAudioSource.volume = Mathf.MoveTowards(engineAudioSource.volume, targetVolume, fadeSpeed * Time.deltaTime);
+        if (!engineAudioSource.isPlaying)
+        {
+            engineAudioSource.Play();
+        }
+            
     }
 }
