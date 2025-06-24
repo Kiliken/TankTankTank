@@ -22,6 +22,8 @@ public class TankMovement2 : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
+    private float leftTrigger;  // 0 to 1
+    private float rightTrigger; // 0 to 1
 
     private float moveInput;
     private float rotInput;
@@ -47,6 +49,7 @@ public class TankMovement2 : MonoBehaviour
         rb.freezeRotation = true;
         orientation = gameObject.transform;
 
+        engineAudioSource.volume = 0f;
     }
 
     // Update is called once per frame
@@ -78,35 +81,51 @@ public class TankMovement2 : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if (horizontalInput + verticalInput == 0)
+        leftTrigger = Input.GetAxis("leftTrigger");
+        //if(leftTrigger != 0)
+        //{
+        //    Debug.Log("leftTRIGGER");
+        //}
+        rightTrigger = Input.GetAxis("rightTrigger");
+        if (Input.GetButton("LB"))
+        {
+            //Debug.Log("lbPRESSED");
+            leftTrigger = -leftTrigger;
+        }
+        if (Input.GetButton("RB"))
+        {
+            rightTrigger = -rightTrigger;
+        }
+
+        if (rightTrigger + leftTrigger == 0)
         {
             moveInput = 0;
         }
-        else if(horizontalInput + verticalInput > 0)
+        else if(rightTrigger + leftTrigger > 0)
         {
-            moveInput = (horizontalInput + verticalInput - Mathf.Abs(verticalInput - horizontalInput) / 2) / 2;
+            moveInput = (rightTrigger + leftTrigger - Mathf.Abs(leftTrigger - rightTrigger) / 2) / 2;
         }
-        else if (horizontalInput + verticalInput < 0)
+        else if (rightTrigger + leftTrigger < 0)
         {
-            moveInput = (horizontalInput + verticalInput + Mathf.Abs(verticalInput - horizontalInput) / 2) / 2;
+            moveInput = (rightTrigger + leftTrigger + Mathf.Abs(leftTrigger - rightTrigger) / 2) / 2;
         }
 
-        rotInput = (verticalInput - horizontalInput) / 2;
+        rotInput = (leftTrigger - rightTrigger) / 2;
         
 
         moveSpeed = (moveInput != 0) ? moveSpeedDefault : 0f;
 
-        if (Input.GetKey(KeyCode.J))
+        if (horizontalInput < 0)
         {
             turret.TurnLeft();
         }
 
-        if (Input.GetKey(KeyCode.L)) {
+        if (horizontalInput > 0) {
             turret.TurnRight();
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("AButton"))
         {
             turret.Fire();
             sinceFire = 0f;

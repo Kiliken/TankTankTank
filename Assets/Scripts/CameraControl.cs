@@ -35,7 +35,7 @@ public class CameraControl : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("AButton"))
         {
             Shake();
         }
