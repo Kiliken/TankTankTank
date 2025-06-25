@@ -81,12 +81,16 @@ public class TankMovement2 : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        leftTrigger = Input.GetAxis("leftTrigger");
-        //if(leftTrigger != 0)
-        //{
-        //    Debug.Log("leftTRIGGER");
-        //}
-        rightTrigger = Input.GetAxis("rightTrigger");
+        leftTrigger = Input.GetAxisRaw("leftTrigger");
+        rightTrigger = Input.GetAxisRaw("rightTrigger");
+        if (leftTrigger <= 0 && Input.GetButton("LB"))
+        {
+            leftTrigger = -1;
+        }
+        if (rightTrigger <= 0 && Input.GetButton("RB"))
+        {
+            rightTrigger = -1;
+        }
 
         if(enableKeyboard)
         {
@@ -124,15 +128,15 @@ public class TankMovement2 : MonoBehaviour
 
 
 
-        if (Input.GetButton("LB"))
-        {
-            //Debug.Log("lbPRESSED");
-            leftTrigger = -leftTrigger;
-        }
-        if (Input.GetButton("RB"))
-        {
-            rightTrigger = -rightTrigger;
-        }
+        //if (Input.GetButton("LB"))
+        //{
+        //    //Debug.Log("lbPRESSED");
+        //    leftTrigger = -leftTrigger;
+        //}
+        //if (Input.GetButton("RB"))
+        //{
+        //    rightTrigger = -rightTrigger;
+        //}
 
         if (rightTrigger + leftTrigger == 0)
         {
