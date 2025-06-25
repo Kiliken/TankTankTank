@@ -22,7 +22,7 @@ public class Cannon : MonoBehaviour
     {
         Debug.DrawRay(transform.position, transform.forward * 100f, Color.red);
 
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Ammo")))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Player" , "Environment")))
         {
             Debug.Log("Hit");
         }
