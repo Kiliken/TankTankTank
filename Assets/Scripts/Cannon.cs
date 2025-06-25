@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
+    [SerializeField] private int damage = 1;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioClip cannonSoundEffect;
     [SerializeField] private AudioClip cannonReloadSoundEffect;
@@ -21,15 +22,19 @@ public class Cannon : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.forward * 100f, Color.red);
-
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Player" , "Environment")))
-        {
-            Debug.Log("Hit");
-        }
     }
 
     public void Fire()
     {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Player", "Environment")))
+        {
+            if (hit.transform.tag == "Hurtbox")
+            {
+                Debug.Log("Shot player");
+                hit.transform.GetComponent<PlayerHP>().ReceiveDamage(damage);
+            }
+        }
+
         transform.position -= transform.forward * 0.5f;
         muzzleFlash.Play();
         audioSource.PlayOneShot(cannonSoundEffect);

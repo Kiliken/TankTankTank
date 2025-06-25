@@ -457,6 +457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6468671864603963056}
+  - component: {fileID: 1118615787478268564}
   - component: {fileID: 8879509656354393835}
   - component: {fileID: 7865520157685919250}
   - component: {fileID: 6147245014679124561}
@@ -482,6 +483,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2281531194773669393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118615787478268564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3382473183497169731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d254879cff0db044bdb986a1f698c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 1
+  maxHP: 5
+  currentHP: 5
 --- !u!33 &8879509656354393835
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -735,6 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a67a7f4045e8645a05c1253638ca55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
   muzzleFlash: {fileID: 1004556497212956454}
   cannonSoundEffect: {fileID: 8300000, guid: 5880d33672ae7514c83c3ab91c5a70c2, type: 3}
   cannonReloadSoundEffect: {fileID: 8300000, guid: cf509b48e8665b744a5b32f8a4655400,
@@ -1637,7 +1654,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2281531194773669393}
-  - component: {fileID: 1260111735460762244}
   - component: {fileID: 2526468549606247996}
   - component: {fileID: 7239158038293642585}
   - component: {fileID: 5493177092108665635}
@@ -1668,21 +1684,6 @@ Transform:
   - {fileID: 6468671864603963056}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1260111735460762244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7038288012237571189}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121a4f05f5be58f499aee924ed5fa00b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
-  moveSpeedDefault: 10
-  moveSpeedDash: 100
 --- !u!33 &2526468549606247996
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1800,9 +1801,9 @@ MonoBehaviour:
   moveSpeedDash: 100
   engineAudioSource: {fileID: 6376606157160613706}
   moveThreshold: 0.1
-  maxVolume: 0.7
+  maxVolume: 0.5
   fadeSpeed: 1.5
-  minVolume: 0.4
+  minVolume: 0.3
   enableKeyboard: 1
   turret: {fileID: 7424803922538597451}
 --- !u!82 &6376606157160613706
