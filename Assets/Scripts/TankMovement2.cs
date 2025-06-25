@@ -18,7 +18,7 @@ public class TankMovement2 : MonoBehaviour
     [SerializeField] private float fadeSpeed = 2f; // How fast volume changes
     [SerializeField] private float minVolume = 0.1f;
 
-
+    [SerializeField] private bool enableKeyboard;
 
     private float horizontalInput;
     private float verticalInput;
@@ -87,6 +87,43 @@ public class TankMovement2 : MonoBehaviour
         //    Debug.Log("leftTRIGGER");
         //}
         rightTrigger = Input.GetAxis("rightTrigger");
+
+        if(enableKeyboard)
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                leftTrigger = 1;
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                leftTrigger = -1;
+            }
+            if (Input.GetKey(KeyCode.Alpha3))
+            {
+                rightTrigger = 1;
+            }
+            else if (Input.GetKey(KeyCode.E))
+            {
+                rightTrigger = -1;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                turret.Fire();
+                sinceFire = 0f;
+                returned = false;
+            }
+            if (Input.GetKey(KeyCode.J))
+            {
+                turret.TurnLeft();
+            }
+            if (Input.GetKey(KeyCode.L))
+            {
+                turret.TurnRight();
+            }
+        }
+
+
+
         if (Input.GetButton("LB"))
         {
             //Debug.Log("lbPRESSED");
@@ -131,6 +168,8 @@ public class TankMovement2 : MonoBehaviour
             sinceFire = 0f;
             returned = false;
         }
+
+
         sinceFire += Time.deltaTime;
         if (sinceFire > 0.1f && returned == false)
         {

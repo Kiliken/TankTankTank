@@ -9,6 +9,7 @@ public class Cannon : MonoBehaviour
     [SerializeField] private AudioClip cannonSoundEffect;
     [SerializeField] private AudioClip cannonReloadSoundEffect;
     private AudioSource audioSource;
+    [SerializeField] private CameraControl camera;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class Cannon : MonoBehaviour
         muzzleFlash.Play();
         audioSource.PlayOneShot(cannonSoundEffect);
         audioSource.PlayOneShot(cannonReloadSoundEffect);
-
+        camera.Shake();
     }
     public void ReturnPos()
     {

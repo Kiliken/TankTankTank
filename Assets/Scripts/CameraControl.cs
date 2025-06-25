@@ -35,10 +35,10 @@ public class CameraControl : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("AButton"))
-        {
-            Shake();
-        }
+        //if(Input.GetButtonDown("AButton"))
+        //{
+        //    Shake();
+        //}
     }
 
     public void Shake()
