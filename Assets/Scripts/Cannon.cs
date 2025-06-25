@@ -19,7 +19,12 @@ public class Cannon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawRay(transform.position, transform.forward * 100f, Color.red);
+
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Ammo")))
+        {
+            Debug.Log("Hit");
+        }
     }
 
     public void Fire()
