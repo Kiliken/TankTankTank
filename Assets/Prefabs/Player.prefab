@@ -634,6 +634,7 @@ MonoBehaviour:
   cannonSoundEffect: {fileID: 8300000, guid: 5880d33672ae7514c83c3ab91c5a70c2, type: 3}
   cannonReloadSoundEffect: {fileID: 8300000, guid: cf509b48e8665b744a5b32f8a4655400,
     type: 3}
+  camera: {fileID: 0}
 --- !u!65 &5640335209674430026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1689,13 +1690,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  moveSpeedDefault: 10
+  moveSpeedDefault: 8
   moveSpeedDash: 100
   engineAudioSource: {fileID: 6376606157160613706}
   moveThreshold: 0.1
   maxVolume: 0.7
   fadeSpeed: 1.5
   minVolume: 0.4
+  enableKeyboard: 1
   turret: {fileID: 7424803922538597451}
 --- !u!82 &6376606157160613706
 AudioSource:
