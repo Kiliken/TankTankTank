@@ -26,16 +26,17 @@ public class Cannon : MonoBehaviour
 
     public void Fire()
     {
+
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, LayerMask.GetMask("Player", "Environment")))
         {
-            if (hit.transform.tag == "Hurtbox")
+            if (hit.collider.gameObject.tag == "Hurtbox")
             {
                 Debug.Log("Shot player");
-                hit.transform.GetComponent<PlayerHP>().ReceiveDamage(damage);
+                hit.collider.gameObject.GetComponent<PlayerHP>().ReceiveDamage(damage);
             }
         }
 
-        transform.position -= transform.forward * 0.5f;
+        //transform.position -= transform.forward * 0.5f;
         muzzleFlash.Play();
         audioSource.PlayOneShot(cannonSoundEffect);
         audioSource.PlayOneShot(cannonReloadSoundEffect);
@@ -43,6 +44,6 @@ public class Cannon : MonoBehaviour
     }
     public void ReturnPos()
     {
-        transform.position += transform.forward * 0.5f;
+        //transform.position += transform.forward * 0.5f;
     }
 }

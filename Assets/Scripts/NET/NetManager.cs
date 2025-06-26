@@ -16,19 +16,10 @@ using Debug = UnityEngine.Debug;
 
 Data:
 
-player,vector3sign,vector3x,vector3y,vector3z,eurlerx,eulery,eulerz
+player,vector3x,vector3y,vector3z,eurlerbody,eulerhead,shootingflag
 
-DataDigit:
-0,0,00000,00000,00000,00000,00000,00000
-
-vector3sign:
-    0: + + +
-    1: - - -
-    2: + - -
-    3: + + -
-    4: - + +
-    5: - - +
-
+DataBytes:
+1(byte),4(float),4(float),4(float),4(float),4(float),1(bool)
 
 */
 
@@ -142,11 +133,12 @@ public static class NetManager
         data.posZ = BitConverter.ToSingle(bytes, 9);
         data.rotBody = BitConverter.ToSingle(bytes, 13);
         data.rotHead = BitConverter.ToSingle(bytes, 17);
+        data.isShooting = BitConverter.ToBoolean(bytes, 21);
         
         return data;
     }
 
-    public static byte[] ParseByte(char side, Transform p, float r)
+    public static byte[] ParseByte(char side, Transform p, float r, bool shotFlag)
     {
         byte[] test = new byte[0];
 
@@ -156,6 +148,8 @@ public static class NetManager
         test = test.Concat(BitConverter.GetBytes(p.position.z)).ToArray();
         test = test.Concat(BitConverter.GetBytes(p.eulerAngles.y)).ToArray();
         test = test.Concat(BitConverter.GetBytes(r)).ToArray();
+        test = test.Concat(BitConverter.GetBytes(shotFlag)).ToArray();
+
 
 
         //make a string of ++- +-- and swith then add the flag at the head of the test string
@@ -220,5 +214,6 @@ public class NetData
     public float rotBody;
     public float rotHead;
     public float rotZ;
+    public bool isShooting;
 }
 

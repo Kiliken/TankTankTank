@@ -12,17 +12,28 @@ using System.Diagnostics;
 using System.Threading;
 using Vector3 = UnityEngine.Vector3;
 using Debug = UnityEngine.Debug;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class TestManager : MonoBehaviour
 {
+    [Header("Players")]
     public char playerSide = 'A';
     [SerializeField] Transform player;
     [SerializeField] Transform playerOther;
     [SerializeField] Transform playerHead;
     [SerializeField] Transform playerOtherHead;
+    [SerializeField] TankMovement2 TankConnection;
+    [SerializeField] Cannon playerOtherTurret;
     string playerPosString;
 
+    [Header("Turret")]
+    public bool shooting = false;
+    private bool shot = false;
+    private float shootCD = 3f;
+    private float shootCDTimer = 0f;
+
+    [Header("Client")]
     [SerializeField] string ip = "127.0.0.1";
     [SerializeField] int port = 25565;
     static UdpClient udpc;
@@ -55,7 +66,7 @@ public class TestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        udpSend = NetManager.ParseByte(playerSide, player.transform, playerHead.eulerAngles.y);
+        udpSend = NetManager.ParseByte(playerSide, player.transform, playerHead.eulerAngles.y, TankConnection.shooting);
         //Debug.Log(Encoding.ASCII.GetString(udpSend));
 
         if (udpGet[0] != 0x4E)
@@ -63,8 +74,37 @@ public class TestManager : MonoBehaviour
             //GetData(udpGet.Substring(1, udpGet.Length - 1));
             data = NetManager.RetriveByte(udpGet);
             UpdatePosition();
-        }
+
             
+
+            if (data.isShooting)
+            {
+                if (!shot)
+                {
+                    playerOtherTurret.Fire();
+                    //sinceFire = 0f;
+                    //returned = false;
+                    shot = true;
+                    Debug.Log("enemy shot");
+                }
+
+                if (shootCDTimer < shootCD)
+                {
+                    shootCDTimer += Time.deltaTime;
+                }
+                else
+                {
+                    shot = false;
+                    shootCDTimer = 0f;
+                    Debug.Log("enemy can shoot");
+                }
+            }else shot = false;
+        }
+
+        
+
+
+
 
     }
 
@@ -150,8 +190,8 @@ public class TestManager : MonoBehaviour
 
                 stopWatch.Stop();
                 timeSpan = stopWatch.ElapsedMilliseconds;
-                if (timeSpan < 45)
-                    Thread.Sleep((int)(45 - timeSpan));
+                if (timeSpan < 33)
+                    Thread.Sleep((int)(33 - timeSpan));
 
 
 

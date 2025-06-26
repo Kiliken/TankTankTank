@@ -39,7 +39,7 @@ public class TankMovement2 : MonoBehaviour
     [SerializeField] private float sinceFire = 0f;
     private bool returned = true;
 
-    private bool shooting = false;
+    public bool shooting = false;
     private bool shot = false;
     private float shootCD = 3f;
     private float shootCDTimer = 0f;
