@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
@@ -7,15 +8,17 @@ public class PlayerHP : MonoBehaviour
 {
     [SerializeField] private bool isPlayer = true;
     [SerializeField] private HPBar hpBar;
-
+    [SerializeField] private TextMeshProUGUI endGameText;
     public int maxHP = 5;
     public int currentHP = 5;
     public bool isDead = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         currentHP = maxHP;
+        
     }
 
     // Update is called once per frame
@@ -37,11 +40,13 @@ public class PlayerHP : MonoBehaviour
             if (isPlayer)
             {
                 // SHOW YOU LOSE TEXT
+                endGameText.text = "YOU LOSE";
                 Debug.Log("you lose");
             }
             else
             {
                 // SHOW YOU WIN TEXT
+                endGameText.text = "YOU WIN";
                 Debug.Log("you win");
             }
 
