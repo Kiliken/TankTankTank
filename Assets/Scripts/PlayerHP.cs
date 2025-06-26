@@ -12,15 +12,14 @@ public class PlayerHP : MonoBehaviour
     public int maxHP = 5;
     public int currentHP = 5;
     public bool isDead = false;
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentHP = maxHP;
-        endGameText.text = string.Empty;  
+        endGameText.text = string.Empty;
     }
-
     // Update is called once per frame
     void Update()
     {

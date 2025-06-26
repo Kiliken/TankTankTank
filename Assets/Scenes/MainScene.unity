@@ -2567,7 +2567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   hpBar: {fileID: 457200984}
-  endGameText: {fileID: 0}
+  endGameText: {fileID: 632211532}
   maxHP: 5
   currentHP: 5
   isDead: 0
