@@ -36,8 +36,13 @@ public class TankMovement2 : MonoBehaviour
     private Vector3 rotDirection;
 
     private float returnInterval = 0.5f;
-    private float sinceFire = 0f;
+    [SerializeField] private float sinceFire = 0f;
     private bool returned = true;
+
+    private bool shooting = false;
+    private bool shot = false;
+    private float shootCD = 3f;
+    private float shootCDTimer = 0f;
 
 
 
@@ -58,6 +63,31 @@ public class TankMovement2 : MonoBehaviour
         PlayerInput();
 
         SoundControl();
+
+        if (shooting)
+        {
+            if (!shot)
+            {
+                turret.Fire();
+                sinceFire = 0f;
+                returned = false;
+                shot = true;
+                Debug.Log("shot");
+            }
+
+            if (shootCDTimer < shootCD)
+            {
+                shootCDTimer += Time.deltaTime;
+            }
+            else
+            {
+                shot = false;
+                shooting = false;
+                shootCDTimer = 0f;
+                Debug.Log("can shoot");
+            }
+            
+        }
     }
 
     private void FixedUpdate()
@@ -110,11 +140,15 @@ public class TankMovement2 : MonoBehaviour
             {
                 rightTrigger = -1;
             }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     turret.Fire();
+            //     sinceFire = 0f;
+            //     returned = false;
+            // }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                turret.Fire();
-                sinceFire = 0f;
-                returned = false;
+                shooting = true;
             }
             if (Input.GetKey(KeyCode.J))
             {
@@ -166,11 +200,16 @@ public class TankMovement2 : MonoBehaviour
         }
 
 
+        //if (Input.GetButtonDown("AButton"))
+        //{
+        //    turret.Fire();
+        //    sinceFire = 0f;
+        //    returned = false;
+        //}
+
         if (Input.GetButtonDown("AButton"))
         {
-            turret.Fire();
-            sinceFire = 0f;
-            returned = false;
+            shooting = true;
         }
 
 
