@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 4589079349477530339}
   - component: {fileID: 6508919316420940641}
   m_Layer: 5
-  m_Name: P1_HPBarMain
+  m_Name: P2_HPBarMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
