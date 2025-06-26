@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class PlayerHP : MonoBehaviour
 {
     [SerializeField] private bool isPlayer = true;
+    [SerializeField] private HPBar hpBar;
+
     public int maxHP = 5;
     public int currentHP = 5;
     public bool isDead = false;
@@ -27,7 +30,7 @@ public class PlayerHP : MonoBehaviour
         
         currentHP = Mathf.Max(0, currentHP - dmg);
 
-        // update HP UI
+        hpBar.UpdateHP(currentHP/maxHP);
 
         if (currentHP <= 0)
         {
