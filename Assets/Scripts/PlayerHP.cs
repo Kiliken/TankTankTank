@@ -33,7 +33,7 @@ public class PlayerHP : MonoBehaviour
         
         currentHP = Mathf.Max(0, currentHP - dmg);
 
-        hpBar.UpdateHP(currentHP/maxHP);
+        hpBar.UpdateHP((float)currentHP/(float)maxHP);
 
         if (currentHP <= 0)
         {
