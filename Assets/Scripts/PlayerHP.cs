@@ -7,6 +7,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private bool isPlayer = true;
     public int maxHP = 5;
     public int currentHP = 5;
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +23,26 @@ public class PlayerHP : MonoBehaviour
 
     public void ReceiveDamage(int dmg)
     {
+        if (isDead) return;
+        
         currentHP = Mathf.Max(0, currentHP - dmg);
 
-        // update UI
+        // update HP UI
 
         if (currentHP <= 0)
         {
-            Debug.Log("dead");
+            if (isPlayer)
+            {
+                // SHOW YOU LOSE TEXT
+                Debug.Log("you lose");
+            }
+            else
+            {
+                // SHOW YOU WIN TEXT
+                Debug.Log("you win");
+            }
+
+            isDead = true;
         }
     }
 }
