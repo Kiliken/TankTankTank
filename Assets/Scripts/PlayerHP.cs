@@ -18,7 +18,7 @@ public class PlayerHP : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
-        
+        endGameText.text = string.Empty;  
     }
 
     // Update is called once per frame
