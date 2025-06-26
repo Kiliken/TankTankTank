@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Configuration;
 using System.Threading;
+using System.ComponentModel.Design;
 
 class BasicUdpServer
 {
@@ -29,8 +30,10 @@ class BasicUdpServer
 
             if (command == "data")
             {
-                Console.WriteLine("[Server] Player 1: " + Encoding.ASCII.GetString(p1Data));
-                Console.WriteLine("[Server] Player 2: " + Encoding.ASCII.GetString(p2Data));
+                Console.WriteLine("[Server] Player 1: ");
+                StringifyBytes(p1Data);
+                Console.WriteLine("[Server] Player 2: ");
+                StringifyBytes(p2Data);
             }
 
             if (command == "reset")
@@ -45,12 +48,34 @@ class BasicUdpServer
                 Console.Clear();
                 Console.WriteLine("[Server] console cleared ");
             }
+
+            if (command == "help") Help();
                 
 
         } while (command != "close");
 
         udpServerThread.Abort();
-        Console.WriteLine("[Server] closed");
+        Console.WriteLine("[Server] closed \n PRESS CTRL + C TO CLOSE THE CONSOLE");
+    }
+
+    static void StringifyBytes(byte[] bytes)
+    {
+        foreach (byte b in bytes)
+        {
+            Console.Write(String.Format("0x{0:X2}-", b));
+        }
+        Console.WriteLine("");
+    }
+
+    static void Help()
+    {
+        Console.WriteLine("[Server] avibile commands:\n" +
+        " data\t SHOWS CURRENT STORED DATA\n" +
+        " reset\t RESETS STORED DATA\n" +
+        " clear\t CLEAR THE CONSOLE\n" +
+        " close\t CLOSE SERVER\n" +
+        " help\t SHOWS LIST OF AVIBILE COMMANDS\n"
+        );
     }
     
     private static void ServerLoop()
@@ -61,7 +86,7 @@ class BasicUdpServer
 
         p1Data = new byte[] { 0x4E };
         p2Data = new byte[] { 0x4E };
-		
+
 
         while (true)
         {
@@ -104,7 +129,7 @@ class BasicUdpServer
             }
             catch (SocketException ex)
             {
-                
+
                 // Handle errors gracefully, e.g., log or attempt to reconnect
             }
         }
