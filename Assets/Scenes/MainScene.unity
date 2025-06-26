@@ -2038,6 +2038,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3296497302780726014, guid: 357d5471512e19a43bea4314ff94adb5,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3382473183497169731, guid: 357d5471512e19a43bea4314ff94adb5,
         type: 3}
       propertyPath: m_Name
@@ -2048,6 +2053,22 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 2096205820}
+    - target: {fileID: 3838002016416983180, guid: 357d5471512e19a43bea4314ff94adb5,
+        type: 3}
+      propertyPath: hitSoundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 34e4ce8926465a548b602bf6f09e3e7b, type: 3}
+    - target: {fileID: 3838002016416983180, guid: 357d5471512e19a43bea4314ff94adb5,
+        type: 3}
+      propertyPath: rumbleSoundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: d1646b2968789ec4f80f0465b10235b3, type: 3}
+    - target: {fileID: 3838002016416983180, guid: 357d5471512e19a43bea4314ff94adb5,
+        type: 3}
+      propertyPath: impactEffectPrefab
+      value: 
+      objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+        type: 3}
     - target: {fileID: 4257688480061239136, guid: 357d5471512e19a43bea4314ff94adb5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2112,6 +2133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332976203410680306, guid: 357d5471512e19a43bea4314ff94adb5,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7038288012237571189, guid: 357d5471512e19a43bea4314ff94adb5,
         type: 3}
@@ -5543,9 +5569,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   muzzleFlash: {fileID: 2108693951}
+  impactEffectPrefab: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
   cannonSoundEffect: {fileID: 8300000, guid: 5880d33672ae7514c83c3ab91c5a70c2, type: 3}
   cannonReloadSoundEffect: {fileID: 8300000, guid: cf509b48e8665b744a5b32f8a4655400,
     type: 3}
+  hitSoundEffect: {fileID: 0}
+  rumbleSoundEffect: {fileID: 0}
   camera: {fileID: 2096205820}
 --- !u!82 &8206018060452806560
 AudioSource:
