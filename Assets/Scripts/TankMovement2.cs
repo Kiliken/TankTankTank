@@ -213,8 +213,8 @@ public class TankMovement2 : MonoBehaviour
             {
                 turret.Fire();
                 shooting += 0x01;
-                sinceFire = 0f;
-                returned = false;
+                //sinceFire = 0f;
+                //returned = false;
                 shot = true;
                 Debug.Log("shot");
             }
