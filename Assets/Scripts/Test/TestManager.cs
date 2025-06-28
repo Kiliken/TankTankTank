@@ -81,10 +81,9 @@ public class TestManager : MonoBehaviour
                 playerOtherTurret.Fire();
                 reggaetonCheck++;
 
-                if (reggaetonCheck >= 0xEE) {
-                    reggaetonCheck -= 0xEE;
-                    data.shootingFlag -= 0xEE;
-                }
+                if (reggaetonCheck >= 0x10)
+                    reggaetonCheck -= 0x10;
+                
                 
             }
 
