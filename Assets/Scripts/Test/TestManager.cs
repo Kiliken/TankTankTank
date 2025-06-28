@@ -72,6 +72,10 @@ public class TestManager : MonoBehaviour
 
     void Start()
     {
+        player.position = (playerSide == 'A' ? new Vector3(-28.2f, 1.4f, 52f) : new Vector3(28.2f, 1.4f, -52f));
+        player.eulerAngles = (playerSide == 'A' ? new Vector3(0, -197f, 0) : new Vector3(0, -22f, 0));
+
+
         udpc = new UdpClient(ip, port);
         udpc.Client.ReceiveTimeout = 1000;
         udpDataThread = new Thread(new ThreadStart(SendGetData));
