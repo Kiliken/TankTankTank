@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Wheel : MonoBehaviour
 {
-    private float horizontalInput;
-    private float verticalInput;
+
+    private float leftTrigger;
+    private float rightTrigger;
 
     [SerializeField] private bool isRight;
 
@@ -18,27 +19,44 @@ public class Wheel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+
+        leftTrigger = Input.GetAxisRaw("leftTrigger");
+        rightTrigger = Input.GetAxisRaw("rightTrigger");
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            leftTrigger = 1;
+        }
+        else if (Input.GetKey(KeyCode.Q))
+        {
+            leftTrigger = -1;
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            rightTrigger = 1;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            rightTrigger = -1;
+        }
 
         if (isRight)
         {
-            if (horizontalInput > 0)
+            if (rightTrigger > 0)
             {
                 RotateForward();
             }
-            else if (horizontalInput < 0) 
+            else if (rightTrigger < 0) 
             {
                 RotateBackward();
             }
         }
         else if (!isRight)
         {
-            if (verticalInput > 0)
+            if (leftTrigger > 0)
             {
                 RotateForward();
             }
-            else if (verticalInput < 0)
+            else if (leftTrigger < 0)
             {
                 RotateBackward();
             }
