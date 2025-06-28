@@ -41,7 +41,7 @@ public class TankMovement2 : MonoBehaviour
 
     public bool shooting = false;
     private bool shot = false;
-    private float shootCD = 3f;
+    private float shootCD = 2.5f;
     private float shootCDTimer = 0f;
 
 
@@ -218,6 +218,7 @@ public class TankMovement2 : MonoBehaviour
         {
             returned = true;
             turret.ReturnPos();
+            sinceFire = 0;
         }
     }
 
