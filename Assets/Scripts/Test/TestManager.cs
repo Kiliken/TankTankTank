@@ -76,15 +76,13 @@ public class TestManager : MonoBehaviour
             data = NetManager.RetriveByte(udpGet);
             UpdatePosition();
 
-            if(data.shootingFlag > reggaetonCheck)
+            if((byte)(data.shootingFlag - reggaetonCheck) != 0)
             {
                 playerOtherTurret.Fire();
                 reggaetonCheck++;
 
                 if (reggaetonCheck >= 0x10)
                     reggaetonCheck -= 0x10;
-                
-                
             }
 
             /*if (data.isShooting)
