@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     public Transform target;  
     public Vector3 offset = new Vector3(0, 5, -10); 
-    public float followSpeed = 10f;     
+    public float followSpeed = 1f;     
     public float rotateSpeed = 5f;      
 
 
