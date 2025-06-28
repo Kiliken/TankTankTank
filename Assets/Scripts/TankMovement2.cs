@@ -35,9 +35,9 @@ public class TankMovement2 : MonoBehaviour
     private Quaternion targetModelRotation;
     private Vector3 rotDirection;
 
-    private float returnInterval = 0.5f;
-    [SerializeField] private float sinceFire = 0f;
-    private bool returned = true;
+    //private float returnInterval = 0.5f;
+    //[SerializeField] private float sinceFire = 0f;
+    //private bool returned = true;
 
     public byte shooting = 0x00;
     private bool shot = false;
