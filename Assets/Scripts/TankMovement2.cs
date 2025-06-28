@@ -39,7 +39,7 @@ public class TankMovement2 : MonoBehaviour
     [SerializeField] private float sinceFire = 0f;
     private bool returned = true;
 
-    public bool shooting = false;
+    public byte shooting = 0x00;
     private bool shot = false;
     private float shootCD = 2.5f;
     private float shootCDTimer = 0f;
@@ -64,17 +64,9 @@ public class TankMovement2 : MonoBehaviour
 
         SoundControl();
 
-        if (shooting)
+        //if (shooting)
+        if (shot)
         {
-            if (!shot)
-            {
-                turret.Fire();
-                sinceFire = 0f;
-                returned = false;
-                shot = true;
-                Debug.Log("shot");
-            }
-
             if (shootCDTimer < shootCD)
             {
                 shootCDTimer += Time.deltaTime;
@@ -82,11 +74,10 @@ public class TankMovement2 : MonoBehaviour
             else
             {
                 shot = false;
-                shooting = false;
+                //shooting = false;
                 shootCDTimer = 0f;
                 Debug.Log("can shoot");
             }
-            
         }
     }
 
@@ -148,7 +139,15 @@ public class TankMovement2 : MonoBehaviour
             // }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                shooting = true;
+                if (!shot)
+                {
+                    turret.Fire();
+                    shooting += 0x01;
+                    sinceFire = 0f;
+                    returned = false;
+                    shot = true;
+                    Debug.Log("shot");
+                }
             }
             if (Input.GetKey(KeyCode.J))
             {
@@ -209,7 +208,16 @@ public class TankMovement2 : MonoBehaviour
 
         if (Input.GetButtonDown("AButton"))
         {
-            shooting = true;
+            
+            if (!shot)
+            {
+                turret.Fire();
+                shooting += 0x01;
+                sinceFire = 0f;
+                returned = false;
+                shot = true;
+                Debug.Log("shot");
+            }
         }
 
 

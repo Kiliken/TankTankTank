@@ -32,6 +32,7 @@ public class TestManager : MonoBehaviour
     private bool shot = false;
     private float shootCD = 3f;
     private float shootCDTimer = 0f;
+    private byte reggaetonCheck = 0x00;
 
     [Header("Client")]
     [SerializeField] string ip = "127.0.0.1";
@@ -75,9 +76,19 @@ public class TestManager : MonoBehaviour
             data = NetManager.RetriveByte(udpGet);
             UpdatePosition();
 
-            
+            if(data.shootingFlag > reggaetonCheck)
+            {
+                playerOtherTurret.Fire();
+                reggaetonCheck++;
 
-            if (data.isShooting)
+                if (reggaetonCheck >= 0xEE) {
+                    reggaetonCheck -= 0xEE;
+                    data.shootingFlag -= 0xEE;
+                }
+                
+            }
+
+            /*if (data.isShooting)
             {
                 if (!shot)
                 {
@@ -98,7 +109,7 @@ public class TestManager : MonoBehaviour
                     shootCDTimer = 0f;
                     Debug.Log("enemy can shoot");
                 }
-            }else shot = false;
+            }else shot = false;*/
         }
 
         

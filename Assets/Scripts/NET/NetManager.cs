@@ -133,12 +133,12 @@ public static class NetManager
         data.posZ = BitConverter.ToSingle(bytes, 9);
         data.rotBody = BitConverter.ToSingle(bytes, 13);
         data.rotHead = BitConverter.ToSingle(bytes, 17);
-        data.isShooting = BitConverter.ToBoolean(bytes, 21);
+        data.shootingFlag = bytes[21];
         
         return data;
     }
 
-    public static byte[] ParseByte(char side, Transform p, float r, bool shotFlag)
+    public static byte[] ParseByte(char side, Transform p, float r, byte shotFlag)
     {
         byte[] test = new byte[0];
 
@@ -214,6 +214,6 @@ public class NetData
     public float rotBody;
     public float rotHead;
     public float rotZ;
-    public bool isShooting;
+    public byte shootingFlag;
 }
 
