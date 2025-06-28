@@ -54,6 +54,20 @@ public class TestManager : MonoBehaviour
         QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
         Debug.Log("DEBUG");
+
+        if (GetArg("-ip") != null)
+        {
+            ip = GetArg("-ip");
+        }
+        if (GetArg("-port") != null)
+        {
+            port = int.Parse(GetArg("-port"));
+        }
+
+        if (GetArg("-player") != null)
+        {
+            playerSide = char.Parse(GetArg("-player"));
+        }
     }
 
     void Start()
@@ -223,6 +237,19 @@ public class TestManager : MonoBehaviour
         playerOther.eulerAngles = new Vector3(0, data.rotBody, 0);
         playerOtherHead.eulerAngles = new Vector3(-90, data.rotHead, 0);
         //
+    }
+
+    private static string GetArg(string name)
+    {
+        var args = System.Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (args[i] == name && args.Length > i + 1)
+            {
+                return args[i + 1];
+            }
+        }
+        return null;
     }
 
 }
