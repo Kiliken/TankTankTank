@@ -221,13 +221,13 @@ public class TankMovement2 : MonoBehaviour
         }
 
 
-        sinceFire += Time.deltaTime;
-        if (sinceFire > 0.1f && returned == false)
-        {
-            returned = true;
-            turret.ReturnPos();
-            sinceFire = 0;
-        }
+        //sinceFire += Time.deltaTime;
+        //if (sinceFire > 0.1f && returned == false)
+        //{
+        //    returned = true;
+        //    turret.ReturnPos();
+        //    sinceFire = 0;
+        //}
     }
 
     private void Movement()

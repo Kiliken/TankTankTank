@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Cannon : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Cannon : MonoBehaviour
     [SerializeField] private AudioClip rumbleSoundEffect;
     private AudioSource audioSource;
     [SerializeField] private CameraControl camera;
+    private float sinceFire = 0f;
+    private bool returned = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,15 @@ public class Cannon : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.forward * 100f, Color.red);
+
+        sinceFire += Time.deltaTime;
+
+        if (sinceFire > 0.1f && returned == false)
+        {
+            returned = true;
+            ReturnPos();
+            sinceFire = 0;
+        }
     }
 
     public void Fire()
@@ -55,6 +67,10 @@ public class Cannon : MonoBehaviour
         
         
         camera.Shake();
+        returned = false;
+        sinceFire = 0f;
+
+        
     }
 
 
